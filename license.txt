@@ -4,7 +4,8 @@ Code: Elkien3 (CC BY-SA 3.0)
 Textures:
 	binoculars_binoculars.png (from Minetest Game): Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) Copyright (C) 2017 paramat
 	rangedweapons_*: bullets unedited, most of the others are edited from the guns from rangedweapons. (cc-by-sa 4.0 davidthecreator)
-	All others: Elkien3 (CC BY-SA 3.0)
+	model based sprites: Elkien3 (CC BY-SA 3.0)
+	pixel based sprites: vanadiumheart (CC BY-SA 4.0)
 Models: (CC BY-SA 3.0)
 	Modelers: Elkien3 (Colt Army), Extex (Remington870, Thompson, Pardini), FatalError (CZ, Mini14, Binoculars).
 	All tweaked and animated by Elkien3
