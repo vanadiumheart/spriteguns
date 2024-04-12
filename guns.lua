@@ -429,7 +429,7 @@ spriteguns.register_gun("spriteguns:pardini",{
 		load = {
 			length = 4*.25,
 			sounds = {nil, "thompson_charge"},
-			frames = {"load1.png", "load2.png", "load3.png", "load1.png"},
+			frames = {"load1.png", "load2.png", "load3.png", "load4.png"},
 		},
 		reload = {
 			length = 4*.33,
