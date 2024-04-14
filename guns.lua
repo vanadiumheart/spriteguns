@@ -529,7 +529,7 @@ spriteguns.register_gun("spriteguns:coltarmy",{
 			loopstart = 2,
 			loopend = 3,
 			sounds = {nil, nil, "gunslinger_charge"},
-			frames = {"reload1.png", "reload3.png", "reload2.png", "reload1.png", }
+			frames = {"reload1.png", "reload3.png", "reload4.png", "reload1.png", }
 		},
 	},
 })
