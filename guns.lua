@@ -309,7 +309,7 @@ minetest.register_craft({
 })
 
 spriteguns.register_gun("spriteguns:mini14",{
-	description = "Mini-14 Rifle",
+	description = "Mini-30 Rifle",
 	inventory_image = "mini14_inv.png",
 	zoomfov = 60,
 	scale = 7.5,
@@ -382,7 +382,7 @@ else
 end
 
 minetest.register_tool("spriteguns:mag_mini14", {
-	description = "Mini-14 Magazine",
+	description = "Mini-30 Magazine",
 	inventory_image = "rangedweapons_ak47_mag.png",
 })
 spriteguns.register_magazine("spriteguns:mag_mini14", "spriteguns:bullet_762", 15)
