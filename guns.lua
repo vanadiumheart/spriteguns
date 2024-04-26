@@ -118,12 +118,10 @@ if fancycrafts then
 	minetest.register_craft({
 		output = "spriteguns:remington870 1 65534",
 		recipe = {
-			{"gun_lathe:gun_barrel_carbon_steel", "", "", "", ""},
-			{"gun_lathe:gun_barrel_carbon_steel", "gun_lathe:gun_barrel_carbon_steel", "", "", ""},
-			{"group:tree", "gun_lathe:gun_barrel_carbon_steel", "gun_lathe:gun_barrel_carbon_steel", "technic:carbon_steel_ingot", ""},
-			{"", "group:tree", "group:tree", "moreores:mithril_ingot", ""},
-			{"", "", "", "group:tree", "group:tree"},
-
+			{"gun_lathe:gun_barrel_carbon_steel", "", ""},
+			{"group:tree", "gun_lathe:gun_barrel_carbon_steel", ""},
+			{"", "group:tree", "moreores:mithril_ingot"},
+			{"", "group:tree", "group:tree"},
 		}
 	})
 else
