@@ -4,12 +4,12 @@ High Resolution Texture pack is available at https://elkien3.com/hiresguns.zip, 
 Using the guns:
 	There are two main ways guns are loaded: through magazines or by inserting the ammunition directly into the firearm.
 
-	Colt Army: 9mm cartridges
-	Pardini: Pardini Magazine (9mm)
+	Colt Army: .45 acp cartridges
+	Pardini: Pardini Magazine (.45 acp)
 	Remington 870: 12 gauge shells
-	Thompson: Thompson Magazine (9mm)
-	Mini14: Mini14 Magazine: (7.62mm)
-	CZ527: Cz527 Magazine (7.62mm)
+	Thompson: Thompson Magazine (.45 acp)
+	Mini14: Mini14 Magazine: (7.62 x 39mm)
+	CZ527: Cz527 Magazine (7.62 x 39mm)
 
 	Loading a magazine: take the appropriate magazine for the gun you want to load, and put it in the crafting grid with the appropriate ammunition. Complete the craft and the ammunition will be loaded into the magazine. Put the magazine into the craft grid by itself and then craft to empty it.
 
