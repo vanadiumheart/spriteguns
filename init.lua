@@ -189,14 +189,18 @@ local function add_gun(name, gunname)
 		world_pos = {x=0,y=0,z=0},
 		z_index = -10000
 	})
+	-- Whether hotbar alignment is correct on the client. This is the case since 5.10.0:
+	-- It was fixed in https://github.com/luanti-org/luanti/commit/4e6e8b7bf1c4a60c6d2f630367862a8645ccbf0c
+	local hotbar_placement_fixed = core.get_player_information(name).protocol_version >= 46
 	gun_huds[name].hotbar = player:hud_add({
 		hud_elem_type = "inventory",
 		text = "main",
 		number = 8,
-		alignment = {x=0,y=0},
+		alignment = hotbar_placement_fixed and {x = 0, y = -1} or {x = 0, y = 0},
 		position  = {x = 0.5, y = 1},
 		item = player:get_wield_index(),
-		offset = {x=-224,y=-60}
+		-- c.f. builtin/game/hud.lua in Luanti
+		offset = hotbar_placement_fixed and {x = 0, y = -4} or {x = -224, y = -60},
 	})
 	gun_huds[name].lastlook = player:get_look_dir()
 end
@@ -372,6 +376,7 @@ local function fire(player, def, itemstack)
 				texture = "gunslinger_decal.png",
 				vertical = true
 			})
+			minetest.check_for_falling(pointed.under)
 		end
 		-- Projectile particle
 		minetest.add_particle({
@@ -580,6 +585,21 @@ function spriteguns.set_wag(name, value)
 	wagtbl[name] = value
 end
 
+local loadtbl = {}
+if unified_inventory then
+	unified_inventory.register_button("loadgun", {
+		type = "image",
+		image = "pardini_inv.png",
+		tooltip = "Load the gun in your hand",
+		action = function(player)
+			local name = player:get_player_name()
+			if gun_huds[name] then
+				loadtbl[name] = true
+			end
+		end,
+	})
+end
+
 local warnedplayers = {}
 minetest.register_globalstep(function(dtime)
 	local t1 = minetest.get_us_time()/1000000
@@ -587,6 +607,9 @@ minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do --todo only check on inv move or wield index change
 		local name = player:get_player_name()
 		if not gun_huds[name] then
+			if loadtbl[name] then
+				loadtbl[name] = nil
+			end
 			local wield = player:get_wielded_item():get_name()
 			local def = spriteguns.registered_guns[wield]
 			if def and minetest.check_player_privs(name, {interact=true}) then
@@ -611,9 +634,10 @@ minetest.register_globalstep(function(dtime)
 		local inv = player:get_inventory()
 		local ammo = ItemStack(def.ammo)
 		ammo:set_count(1)
-		if not tbl.anim and ctrl.zoom and wear > 1 and inv:contains_item("main", ammo) and (not def.magazine or (wear == max_wear and tbl.stack:get_meta():get_int("nomag") == 1)) then
+		if not tbl.anim and (ctrl.zoom or loadtbl[name]) and wear > 1 and inv:contains_item("main", ammo) and (not def.magazine or (wear == max_wear and tbl.stack:get_meta():get_int("nomag") == 1)) then
 			tbl.anim = "reload"
 		end
+		loadtbl[name] = nil
 		local speed = vector.length(player:get_player_velocity())
 		if speed > max_speed then speed = max_speed end
 		local f = speed*.3
@@ -1004,7 +1028,12 @@ minetest.get_craft_result = function(input)
 	local output, decremented_input = oldfunc3(input)
 	if input and input.items then
 		for i, item in pairs(input.items) do
-			local def = minetest.registered_items[item:get_name()]
+			local def
+			if item.get_name then
+				def = minetest.registered_items[item:get_name()]
+			else
+				def = minetest.registered_items[item]
+			end
 			if def and def.groups and def.groups.spriteguns_magazine then
 				return {item = ItemStack(), time = 0, replacements = {}}
 			end
